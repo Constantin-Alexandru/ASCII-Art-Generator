@@ -36,7 +36,7 @@ Image::~Image()
 
 bool Image::read(const char *filename)
 {
-    data = stbi_load(filename, &w, &h, &channels, 4);
+    data = stbi_load(filename, &w, &h, &channels, 0);
     return data != NULL;
 }
 
@@ -88,4 +88,31 @@ ImageType Image::getFileType(const char *filename)
     }
 
     return ImageType::PNG;
+}
+
+std::ostream &operator<<(std::ostream &out, const Image &img)
+{
+    out << "Width: " << img.w << " | Height: " << img.h << " | Channels: " << img.channels << '\n';
+
+    for (int i = 0; i < img.w * img.h * img.channels; i += img.channels)
+    {
+        if (img.channels == 1)
+        {
+            out << img.data[i] << '\n';
+        }
+        else if (img.channels == 2)
+        {
+            out << img.data[i] << " " << img.data[i + 1] << '\n';
+        }
+        else if (img.channels == 3)
+        {
+            out << img.data[i] << " " << img.data[i + 1] << img.data[i + 2] << '\n';
+        }
+        else
+        {
+            out << img.data[i] << " " << img.data[i + 1] << " " << img.data[i + 2] << " " << img.data[i + 3] << '\n';
+        }
+    }
+
+    return out;
 }

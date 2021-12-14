@@ -18,12 +18,21 @@ private:
     char getPixelValue(int intensity);
 
 private:
-    std::vector<std::string> characters;
+    std::vector<char> characters;
     std::vector<Pixel> pixels;
 
 private:
-    const int MAX_PIXEL_VALUE = 255 * 4; // SUM OF ALL VALUES: R - 255, G - 255, B - 255, A - 255 -> 255 * 4
+    int MAX_PIXEL_VALUE; // SUM OF ALL VALUES: R - 255, G - 255, B - 255, A - 255
 
-    const int CHARACTERS_COUNT = 8;                                                                     // THE NUMBER OF CHARACTERS USED FOR THE ART
-    const char *CHARACTERS = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0Zmwqpdbkhao*#MW&8%B@$"; // CHARACTERS FOR ASCII ART
+    const int CHARACTERS_COUNT = 71;                                                                     // THE NUMBER OF CHARACTERS USED FOR THE ART
+    const char *CHARACTERS = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"; // CHARACTERS FOR ASCII ART
+    // const char *CHARACTERS = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]S?-_+~<>i!lI;:,\"^`'. "; // CHARACTERS FOR ASCII ART
+
+    // const int CHARACTERS_COUNT = 8;
+    // const char *CHARACTERS = " .'`^\",:";
+    // const char *CHARACTERS = ":,\"^`'. ";
+
+    // const int CHARACTERS_COUNT = 10;
+    // const char *CHARACTERS = "@%#*+=-:. ";
+    // const char *CHARACTERS = " .:-=+*#%@";
 };

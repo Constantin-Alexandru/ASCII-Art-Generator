@@ -4,17 +4,35 @@ Generator::Generator(const char *filename, Image image)
 {
     std::ofstream out(filename);
 
-    pixels.resize(image.w * image.h);
-    characters.resize(pixels.size());
+    printf("GENERATING %s - Width: %d | Height: %d | Channels: %d\n", filename, image.w, image.h, image.channels);
 
-    for (int i = 0; i < image.w * image.h * image.channels; i += 4)
+    int channels = image.channels;
+
+    this->MAX_PIXEL_VALUE = 255 * channels;
+
+    for (int i = 0; i < image.w * image.h * channels; i += channels)
     {
-        pixels[i / 4] = Pixel(image.data[i], image.data[i + 1], image.data[i + 2], image.data[i + 3]);
+        if (channels == 1)
+        {
+            pixels.push_back(Pixel(image.data[i]));
+        }
+        else if (channels == 2)
+        {
+            pixels.push_back(Pixel(image.data[i], image.data[i + 1]));
+        }
+        else if (channels == 3)
+        {
+            pixels.push_back(Pixel(image.data[i], image.data[i + 1], image.data[i + 2]));
+        }
+        else if (channels == 4)
+        {
+            pixels.push_back(Pixel(image.data[i], image.data[i + 1], image.data[i + 2], image.data[i + 3]));
+        }
     }
 
-    for (int i = 0; i < characters.size(); i++)
+    for (int i = 0; i < pixels.size(); i++)
     {
-        characters[i] = getPixelValue(getPixelIntensity(pixels[i]));
+        characters.push_back(getPixelValue(getPixelIntensity(pixels[i])));
     }
 
     for (int i = 0; i < characters.size(); i++)
@@ -25,6 +43,8 @@ Generator::Generator(const char *filename, Image image)
             out << '\n';
         }
     }
+
+    printf("FINISHED GENERATING %s\n", filename);
 
     out.close();
 }

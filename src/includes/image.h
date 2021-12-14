@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <iostream>
 
 enum class ImageType
 {
@@ -12,8 +13,9 @@ enum class ImageType
     TGA
 };
 
-struct Image
+class Image
 {
+public:
     uint8_t *data = NULL;
     size_t size = 0;
     int w;
@@ -28,5 +30,8 @@ struct Image
     bool read(const char *filename);
     bool write(const char *filename);
 
+    friend std::ostream &operator<<(std::ostream &out, const Image &img);
+
+private:
     ImageType getFileType(const char *filename);
 };
